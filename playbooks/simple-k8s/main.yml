@@ -1,0 +1,4 @@
+---
+debug:
+  msg:
+    - "hello ansible and awx (tower)"
