@@ -1,0 +1,7 @@
+---
+- name: hello playbooks
+  hosts: localhost
+  tasks:  
+    debug:
+      msg:
+        - "hello ansible and awx (tower)"
