@@ -18,6 +18,7 @@
     - name: Create Deployment
       k8s:
         state: present
+        wait: true
         definition:
           apiVersion: apps/v1
           kind: Deployment
