@@ -7,10 +7,14 @@
   collections:
     - ibm.cloudcollection
     - community.kubernetes
+  
+  environment:
+    - IC_API_KEY: "{{ ibmcloud_api_key }}"
 
   tasks:
     - name: Save Cluster config File
       ibm_container_cluster_config_info:
+        ibmcloud_api_key: "{{ ibmcloud_api_key }}"
         cluster_name_id: "{{cluster_info.id}}"
       register: config_output
 
