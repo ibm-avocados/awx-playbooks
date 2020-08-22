@@ -16,6 +16,11 @@
       debug:
         msg:
           - "{{ config_data | b64decode }}"
+    - name: Make sure destination dir exists
+      file:
+        path: "{{ config_file_path | dirname }}"
+        state: directory
+        recurse: yes
     - name: write content to file
       copy:
         dest: "{{ config_file_path }}"
