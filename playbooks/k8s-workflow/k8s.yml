@@ -26,8 +26,9 @@
         dest: "{{ config_file_path }}"
         content: "{{ config_data | b64decode }}"
     - name: Ensure the myapp Namespace exists.
+      environment:
+        KUBECONFIG: "{{ config_file_path }}"
       k8s:
-        kubeconfig: "{{ config_file_path }}"
         api_version: v1
         kind: Namespace
         name: myapp
