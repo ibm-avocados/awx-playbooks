@@ -69,5 +69,6 @@
       set_stats:
         data:
           config_data: "{{ config_file_content.content }}"
+          config_file_path: "{{ cluster_config.config_file_path }}"
   
       
