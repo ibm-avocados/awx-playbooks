@@ -56,16 +56,18 @@
       debug:
         msg: "cluster : {{ cluster_info }}"
 
-    - name: set cluster config filepath as stat for next playbook
+    - name: set cluster config into a variable
       # set_stats:
       #   data:
       #     config_file_path: "{{ cluster_config.config_file_path }}"
       slurp:
         src: "{{ cluster_config.config_file_path }}"
       register: config_file_content
-      set_stats: 
+      when: config_output.rc==0
+
+    - name: set data as stat for next playbook
+      set_stats:
         data:
           config_data: "{{ config_file_content }}"
-      when: config_output.rc==0
   
       
