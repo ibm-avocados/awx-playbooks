@@ -6,8 +6,10 @@
 
   collections:
     - community.kubernetes
-    
+
   tasks:
+    - name: print config file contet
+      shell: "cat {{ config_file_path }}"
     - name: Ensure the myapp Namespace exists.
       k8s:
         kubeconfig: "{{ config_file_path }}"
