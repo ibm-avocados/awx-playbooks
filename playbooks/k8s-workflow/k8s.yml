@@ -28,6 +28,7 @@
     - name: Ensure the myapp Namespace exists.
       environment:
         KUBECONFIG: "{{ config_file_path }}"
+        K8S_AUTH_KUBECONFIG: "{{ config_file_path }}"
       k8s:
         api_version: v1
         kind: Namespace
