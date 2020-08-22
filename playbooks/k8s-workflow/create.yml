@@ -57,9 +57,15 @@
         msg: "cluster : {{ cluster_info }}"
 
     - name: set cluster config filepath as stat for next playbook
-      set_stats:
+      # set_stats:
+      #   data:
+      #     config_file_path: "{{ cluster_config.config_file_path }}"
+      slurp:
+        src: "{{ cluster_config.config_file_path }}"
+      register: config_file_content
+      set_stats: 
         data:
-          config_file_path: "{{ cluster_config.config_file_path }}"
+          config_data: "{{ config_file_content }}"
       when: config_output.rc==0
   
       
