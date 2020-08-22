@@ -5,32 +5,26 @@
   connection: local
 
   collections:
+    - ibm.cloudcollection
     - community.kubernetes
 
   tasks:
-    - name: print config file contet b64
-      debug:
-        msg:
-          - "{{ config_data }}"
-    - name: print content
-      debug:
-        msg:
-          - "{{ config_data | b64decode }}"
-    - name: Make sure destination dir exists
-      file:
-        path: "{{ config_file_path | dirname }}"
-        state: directory
-        recurse: yes
-    - name: write content to file
-      copy:
-        dest: "{{ config_file_path }}"
-        content: "{{ config_data | b64decode }}"
+    - name: Save Cluster config File
+      ibm_container_cluster_config_info:
+        cluster_name_id: "{{cluster_info.id}}"
+      register: config_output
+
+    - name: save cluster config path as fact
+      set_fact:
+        cacheable: True
+        cluster_config: "{{ config_output.resource }}"
+      when: config_output.rc==0     
+    
     - name: Ensure the myapp Namespace exists.
-      environment:
-        KUBECONFIG: "{{ config_file_path }}"
-        K8S_AUTH_KUBECONFIG: "{{ config_file_path }}"
       k8s:
+        kubeconfig: "{{ cluster_config.config_file_path }}"
         api_version: v1
         kind: Namespace
         name: myapp
         state: present
+      when: config_output.rc==0

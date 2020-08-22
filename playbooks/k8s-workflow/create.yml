@@ -17,10 +17,10 @@
         - '"cluster could not be found" not in cluster_output.stderr'
       register: cluster_output
 
-    - name: Save Cluster info as fact
-      set_fact:
-        cacheable: True
-        cluster_info: "{{ cluster_output.resource }}"
+    - name: Save Cluster for next steps
+      set_stats:
+        data:
+          cluster_info: "{{ cluster_output.resource }}"
       when: cluster_output.rc==0
     
     - name: Create Openshift Cluster
@@ -35,40 +35,40 @@
       register: cluster_create_output
       when: cluster_output.rc != 0
 
-    - name: save created cluster info as fact
-      set_fact:
-        cacheable: True
-        cluster_info: "{{ cluster_create_output.resource }}"
-      when: cluster_create_output.resource.id is defined
-
-    - name: Save Cluster config File
-      ibm_container_cluster_config_info:
-        cluster_name_id: "{{cluster_info.id}}"
-      register: config_output
-
-    - name: save cluster config path as fact
-      set_fact:
-        cacheable: True
-        cluster_config: "{{ config_output.resource }}"
-      when: config_output.rc==0      
-
-    - name: Print Cluster info 
-      debug:
-        msg: "cluster : {{ cluster_info }}"
-
-    - name: set cluster config into a variable
-      # set_stats:
-      #   data:
-      #     config_file_path: "{{ cluster_config.config_file_path }}"
-      slurp:
-        src: "{{ cluster_config.config_file_path }}"
-      register: config_file_content
-      when: config_output.rc==0
-
-    - name: set data as stat for next playbook
+    - name: save created cluster for next step
       set_stats:
         data:
-          config_data: "{{ config_file_content.content }}"
-          config_file_path: "{{ cluster_config.config_file_path }}"
+          cluster_info: "{{ cluster_create_output.resource }}"
+      when: cluster_create_output.resource.id is defined
+
+    # - name: Save Cluster config File
+    #   ibm_container_cluster_config_info:
+    #     cluster_name_id: "{{cluster_info.id}}"
+    #   register: config_output
+
+    # - name: save cluster config path as fact
+    #   set_fact:
+    #     cacheable: True
+    #     cluster_config: "{{ config_output.resource }}"
+    #   when: config_output.rc==0      
+
+    # - name: Print Cluster info 
+    #   debug:
+    #     msg: "cluster : {{ cluster_info }}"
+
+    # - name: set cluster config into a variable
+    #   # set_stats:
+    #   #   data:
+    #   #     config_file_path: "{{ cluster_config.config_file_path }}"
+    #   slurp:
+    #     src: "{{ cluster_config.config_file_path }}"
+    #   register: config_file_content
+    #   when: config_output.rc==0
+
+    # - name: set data as stat for next playbook
+    #   set_stats:
+    #     data:
+    #       config_data: "{{ config_file_content.content }}"
+    #       config_file_path: "{{ cluster_config.config_file_path }}"
   
       
