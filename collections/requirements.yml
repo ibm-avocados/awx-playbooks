@@ -2,4 +2,5 @@
 collections:
   - name: community.kubernetes
     version: 1.0.0
-
+  - name: ibm.cloudcollection
+    version: 1.10.0
