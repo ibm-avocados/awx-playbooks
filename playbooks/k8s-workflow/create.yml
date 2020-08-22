@@ -68,6 +68,6 @@
     - name: set data as stat for next playbook
       set_stats:
         data:
-          config_data: "{{ config_file_content }}"
+          config_data: "{{ config_file_content.content }}"
   
       
