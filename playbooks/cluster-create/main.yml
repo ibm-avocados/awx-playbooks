@@ -37,7 +37,7 @@
     # create the .terraformrc file
     - name: Create the .terraformrc file
       template:
-        src: ../templates/terraformrc.j2
+        src: templates/terraformrc.j2
         dest: ~/.terraformrc
         owner: root
         group: root
