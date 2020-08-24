@@ -37,27 +37,20 @@
     # create the .terraformrc file
     - name: Create the .terraformrc file
       template:
-        src: templates/terraformrc.j2
+        src: ./templates/terraformrc.j2
         dest: ~/.terraformrc
-        owner: root
-        group: root
-        mode: '0644'
 
     # create a terraform project directory
     - name: Create a project directory
       file:
         path: ~/terraform/
         state: directory
-        mode: '0644'
 
     # copy in the terraform plan
     - name: Copy in the terraform plan
       template:
-        src: ../templates/plan.tf
+        src: ./templates/plan.tf
         dest: ~/terraform/
-        owner: root
-        group: root
-        mode: '0644'
 
     # run terraform 
     - name: Run terraform 
