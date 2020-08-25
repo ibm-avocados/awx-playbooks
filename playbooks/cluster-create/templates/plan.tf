@@ -31,7 +31,6 @@ resource "ibm_container_cluster" "{{ cluster_name }}" {
   kube_version      = "{{ kube_version }}"
   tags              = [ {{ tags }} ]
   default_pool_size = "{{ default_pool_size }}"
-  entitlement       = "{{ entitlement }}"
 }
 
 
