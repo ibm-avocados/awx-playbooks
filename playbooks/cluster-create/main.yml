@@ -31,7 +31,7 @@
     - name: Pull down the ibmcloud terraform provider
       unarchive:
         src: https://github.com/IBM-Cloud/terraform-provider-ibm/releases/download/v1.11.0/linux_amd64.zip
-        dest: ~/.terraform.d/plugins
+        dest: /runner/.terraform.d/plugins
         remote_src: yes
     
     # create the .terraformrc file
