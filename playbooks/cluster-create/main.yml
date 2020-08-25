@@ -38,24 +38,24 @@
     - name: Create the .terraformrc file
       template:
         src: ./templates/terraformrc.j2
-        dest: ~/.terraformrc
+        dest: /runner/.terraformrc
 
     # create a terraform project directory
     - name: Create a project directory
       file:
-        path: ~/terraform/
+        path: /runner/terraform/
         state: directory
 
     # copy in the terraform plan
     - name: Copy in the terraform plan
       template:
         src: ./templates/plan.tf
-        dest: ~/terraform/
+        dest: /runner/terraform/
 
     # run terraform 
     - name: Run terraform 
       terraform:
-        project_path: ~/terraform
+        project_path: /runner/terraform
         state: present
         force_init: true
 
