@@ -8,37 +8,37 @@
 
   tasks:
     # install dependancies
-    # - name: Install Dependancies
-    #   package:
-    #     name: unzip
-    #     state: present
+    - name: Install Dependancies
+      package:
+        name: unzip
+        state: present
     
-    # # pull down the terraform module
-    # - name: Pull down and install terraform
-    #   unarchive:
-    #     src: https://releases.hashicorp.com/terraform/0.12.0/terraform_0.12.0_linux_amd64.zip
-    #     dest: /usr/local/bin
-    #     remote_src: yes
+    # pull down the terraform module
+    - name: Pull down and install terraform
+      unarchive:
+        src: https://releases.hashicorp.com/terraform/0.12.0/terraform_0.12.0_linux_amd64.zip
+        dest: /usr/local/bin
+        remote_src: yes
           
-    # # create the plugin directory
-    # - name: Create the plugin directory
-    #   file:
-    #     path: ~/.terraform.d/plugins
-    #     state: directory
-    #     mode: '0644'
+    # create the plugin directory
+    - name: Create the plugin directory
+      file:
+        path: ~/.terraform.d/plugins
+        state: directory
+        mode: '0644'
     
-    # # pull down the ibmcloud terraform provider
-    # - name: Pull down the ibmcloud terraform provider
-    #   unarchive:
-    #     src: https://github.com/IBM-Cloud/terraform-provider-ibm/releases/download/v1.11.0/linux_amd64.zip
-    #     dest: ~/.terraform.d/plugins
-    #     remote_src: yes
+    # pull down the ibmcloud terraform provider
+    - name: Pull down the ibmcloud terraform provider
+      unarchive:
+        src: https://github.com/IBM-Cloud/terraform-provider-ibm/releases/download/v1.11.0/linux_amd64.zip
+        dest: ~/.terraform.d/plugins
+        remote_src: yes
     
-    # # create the .terraformrc file
-    # - name: Create the .terraformrc file
-    #   template:
-    #     src: ./templates/terraformrc.j2
-    #     dest: ~/.terraformrc
+    # create the .terraformrc file
+    - name: Create the .terraformrc file
+      template:
+        src: ./templates/terraformrc.j2
+        dest: ~/.terraformrc
 
     # create a terraform project directory
     - name: Create a project directory
