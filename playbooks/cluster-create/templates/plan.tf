@@ -30,7 +30,7 @@ resource "ibm_container_cluster" "{{ cluster_name }}" {
   private_vlan_id   = "{{ private_vlan }}"
   kube_version      = "{{ kube_version }}"
   tags              = "{{ tags }}"
-  default_pool_size = "{{ pool_size }}"
+  default_pool_size = "{{ default_pool_size }}"
   entitlement       = "{{ entitlement }}"
 }
 
