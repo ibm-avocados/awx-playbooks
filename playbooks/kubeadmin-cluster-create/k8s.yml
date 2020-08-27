@@ -15,7 +15,7 @@
     - name: Save Cluster config File
       ibm_container_cluster_config_info:
         ibmcloud_api_key: "{{ ibmcloud_api_key }}"
-        cluster_name_id: "{{cluster_info.id}}"
+        cluster_name_id: "{{cluster_id}}"
       register: config_output
 
     - name: save cluster config path as fact
