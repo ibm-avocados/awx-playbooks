@@ -5,7 +5,7 @@
     - moficodes.kubeadmin
   tasks:
     - pip:
-      name: requests
+        name: requests
     - name: create/get cluster
       kubeadmin_cluster_create:
         name: "{{ cluster_name }}"
