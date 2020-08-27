@@ -1,0 +1,26 @@
+---
+- name: Create Kuberentes cluster on IBM Cloud
+  hosts: localhost
+  collections:
+    - moficodes.kubeadmin
+  tasks:
+    - name: create/get cluster
+      kubeadmin_cluster_create:
+        name: "{{ cluster_name }}"
+        resource_group: "{{ resource_id }}"
+        ibmcloud_api_key: "{{ ibmcloud_api_key }}"
+        datacenter: "{{ datacenter }}"
+        default_pool_size: "{{ default_pool_size }}"
+        entitlement: "{{ entitlement }}"
+        master_version: "{{ master_version }}"
+        machine_type: "{{ machine_type }}"
+        private_vlan_id: "{{ private_vlan }}"
+        public_vlan_id: "{{public_vlan}}"
+        tags: "{{tags}}"
+      register:
+        cluster_create_output
+    - name: save created cluster for next step
+      set_stats:
+        data:
+          cluster_id: "{{ cluster_create_output.resource.id }}"
+      when: cluster_create_output.resource.id is defined
