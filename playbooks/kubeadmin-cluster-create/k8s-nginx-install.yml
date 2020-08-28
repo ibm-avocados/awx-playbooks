@@ -1,0 +1,55 @@
+---
+- name: namespace check
+  hosts: localhost
+  gather_facts: true
+  connection: local
+
+  collections:
+    - ibm.cloudcollection
+    - community.kubernetes
+  
+  environment:
+    - IC_API_KEY: "{{ ibmcloud_api_key }}"
+
+  tasks:
+    - name: Save Cluster config File
+      ibm_container_cluster_config_info:
+        ibmcloud_api_key: "{{ ibmcloud_api_key }}"
+        cluster_name_id: "{{cluster_id}}"
+      register: config_output
+
+    - name: save cluster config path as fact
+      set_fact:
+        cacheable: True
+        cluster_config: "{{ config_output.resource }}"
+      when: config_output.rc==0     
+  
+    - name: Ensure that nginx is deployed
+      k8s:
+        kubeconfig: "{{ cluster_config.config_file_path }}"
+        state: present
+        wait: yes
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: nginx-deployment
+            namespace: myapp
+            labels:
+              app: nginx
+          spec:
+            replicas: 3
+            selector:
+              matchLabels:
+                app: nginx
+            template:
+              metadata:
+                labels:
+                  app: nginx
+              spec:
+                containers:
+                - name: nginx
+                  image: nginx:1.14.2
+                  ports:
+                  - containerPort: 80
+      when: config_output.rc==0

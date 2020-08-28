@@ -4,7 +4,8 @@
   collections:
     - moficodes.kubeadmin
   tasks:
-    - pip:
+    - name: install requests module
+      pip:
         name: requests
     - name: create/get cluster
       kubeadmin_cluster_create:
