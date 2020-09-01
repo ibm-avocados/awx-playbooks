@@ -1,0 +1,4 @@
+---
+apikey: "FAKE_API_KEY"
+cluster: "k8s.ibmdeveloper.net"
+namespace: "default"
