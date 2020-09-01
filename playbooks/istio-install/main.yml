@@ -7,6 +7,10 @@
     - name: Fetch the variables from var file
       include_vars:
         file: vars.yml
-
+        
+    - name: install docker-py module
+      pip:
+        name: docker-py
+        
     - name: include the docker-run tasks
       include: docker-run.yml
