@@ -10,7 +10,9 @@
         
     - name: install docker-py module
       pip:
-        name: docker-py
+        name: 
+          - docker
+          - docker-py
         
     - name: include the docker-run tasks
       include: docker-run.yml
