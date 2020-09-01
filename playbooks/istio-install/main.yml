@@ -1,6 +1,6 @@
 ---
 - name: Install istio on a k8s cluster
-  hosts: localhost
+  hosts: all
 
   tasks:
 
