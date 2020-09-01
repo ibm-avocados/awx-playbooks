@@ -1,4 +1,4 @@
 ---
-apikey: "FAKE_API_KEY"
-cluster: "k8s.ibmdeveloper.net"
+ibmcloud_api_key: "some-api-key"
+cluster_id: "some-cluster"
 namespace: "default"
