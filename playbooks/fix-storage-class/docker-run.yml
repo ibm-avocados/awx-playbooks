@@ -1,0 +1,11 @@
+---
+- name: pull down the newest image
+  docker_image:
+    name: quay.io/awesome/docker-fix-default-storage-class
+    source: pull
+
+- name: run the container
+  docker_container:
+    name: fix-default-storage-class-{{ 99999999 | random | to_uuid }}
+    image: "quay.io/awesome/docker-fix-default-storage-class"
+    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} 
