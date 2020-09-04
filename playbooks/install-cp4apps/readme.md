@@ -27,7 +27,7 @@ These variables need to passed in to the playbook.
 
 Extra vars:
 
-- ENTITLED_REGISTRY_KEY - the key for the entitled registry (https://myibm.ibm.com/products-services/containerlibrary)
+- ENTITLED_REGISTRY_PASSWORD - the key for the entitled registry (https://myibm.ibm.com/products-services/containerlibrary)
 - APIKEY - IBM Cloud API key
 - CLUSTER - The cluster ID
 
