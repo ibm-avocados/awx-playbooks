@@ -1,0 +1,86 @@
+# Install Cloud Pak for Applications on OpenShift
+# 
+# Extra vars:
+#   ENTITLED_REGISTRY_KEY - the key for the entitled registry (https://myibm.ibm.com/products-services/containerlibrary)
+#   APIKEY - IBM Cloud API key
+#   CLUSTER - The cluster ID
+# 
+# 
+# 
+
+- 
+  name: Install Cloud Pak for Applications
+  hosts: localhost
+  tasks: 
+
+  - name: Docker check
+    command: docker -v
+
+  - name: OpenShift check
+    command: oc version
+
+  - name: IBM Cloud cli check
+    command: ibmcloud -v
+
+  - name: Log into IBM Cloud
+    command: ibmcloud login --apikey "{{ APIKEY }}"
+
+  - name: Get Kube config 
+    command: ibmcloud ks cluster config -c "{{ CLUSTER }}"
+
+  - name: log into OpenShift
+    command: oc login -u apikey -p "{{ APIKEY }}"
+
+  # Log in to the registry where the CP4Apps installation image is located
+  - name: Log into Docker registry
+    docker_login:
+      username: "cp"
+      password: "{{ ENTITLED_REGISTRY_PASSWORD }}"
+      registry: "cp.icr.io"
+
+  # Get the configuration files to determine what components of CP4Apps will be installed (Transformation Advisor, Accelerators for
+  # Teams, Mobile First, etc.). For now, we are just getting the default loadout which contains TA and Accelerators for Teams. will 
+  # only run if configuration files are not already present.
+  - name: Get Config Files
+    script: ./getConfigFiles.sh
+    args: 
+      creates: ./data
+
+  #  Check to ensure that the cluster is ready for installation. Checks Openshift version, installed operators, and more.
+  - name: Check prereqs
+    docker_container:
+      name: prereqCheck
+      image: "cp.icr.io/cp/icpa/icpa-installer:4.2.1"
+      volumes:
+        - "~/Documents/projects/ansible/install_cp4a_roks"
+        - "~/.kube:/root/.kube:z"
+      env:
+        LICENSE: "accept"
+        ENTITLED_REGISTRY: "cp.icr.io"
+        ENTITLED_REGISTRY_USER: "cp"
+        ENTITLED_REGISTRY_KEY: "{{ ENTITLED_REGISTRY_PASSWORD }}"
+      user: "0"
+      command: check
+      detach: false
+
+  # Install CP4Apps and its dependencies based on the ./data directory 
+  - name: Run CP4Apps installer
+    docker_container:
+      name: installer
+      image: "cp.icr.io/cp/icpa/icpa-installer:4.2.1"
+      volumes:
+        - "~/Documents/projects/ansible/install_cp4a_roks/data:/installer/data:z"
+        - "~/.kube:/root/.kube:z"
+      env:
+        LICENSE: "accept"
+        ENTITLED_REGISTRY: "cp.icr.io"
+        ENTITLED_REGISTRY_USER: "cp"
+        ENTITLED_REGISTRY_KEY: "{{ ENTITLED_REGISTRY_PASSWORD }}"
+      user: "0"
+      command: install
+      detach: false
+
+
+
+
+
