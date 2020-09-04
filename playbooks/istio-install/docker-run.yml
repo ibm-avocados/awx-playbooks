@@ -1,11 +1,11 @@
 ---
 - name: pull down the newest image
   docker_image:
-    name: quay.io/awesome/docker-istio
+    name: quay.io/ibm-avocados/docker-istio
     source: pull
 
 - name: run the container
   docker_container:
     name: install-istio-cluster-{{ 99999999 | random | to_uuid }}
-    image: "quay.io/awesome/docker-istio:latest"
+    image: "quay.io/ibm-avocados/docker-istio:latest"
     entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} {{ namespace }}
