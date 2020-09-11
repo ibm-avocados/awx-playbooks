@@ -7,12 +7,12 @@
   tasks:
   - name: Print Job ID
     debug:
-      msg: '{{ awx_job_id }}'
+      msg: '{{ tower_job_id }}'
   
   - name: Print Workflow Job ID
     debug: 
-      msg: '{{ awx_workflow_job_id }}'
+      msg: '{{ tower_workflow_job_id }}'
 
   - name: Pring Workflow Job ID Name
     debug: 
-      msg: '{{ awx_workflow_job_name }}'
+      msg: '{{ tower_workflow_job_name }}'
