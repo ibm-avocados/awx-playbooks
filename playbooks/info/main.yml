@@ -1,0 +1,18 @@
+---
+- name: info
+  hosts: localhost
+  gather_facts: true
+  connection: local
+
+  tasks:
+  - name: Print Job ID
+    debug:
+      msg: '{{ awx_job_id }}'
+  
+  - name: Print Workflow Job ID
+    debug: 
+      msg: '{{ awx_workflow_job_id }}'
+
+  - name: Pring Workflow Job ID Name
+    debug: 
+      msg: '{{ awx_workflow_job_name }}'
