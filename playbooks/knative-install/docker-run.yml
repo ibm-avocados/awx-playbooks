@@ -1,0 +1,28 @@
+---
+- name: pull down the newest image
+  docker_image:
+    name: quay.io/ibm-avocados/docker-kubctl
+    source: pull
+
+- name: Install the CRDs
+  docker_container:
+    name: install-knative-cluster-{{ 99999999 | random | to_uuid }}
+    image: "quay.io/ibm-avocados/docker-kubectl:latest"
+    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} "https://github.com/knative/serving/releases/download/v{{ knative_version }}/serving-crds.yaml"
+
+- name: Install the core components
+  docker_container:
+    name: install-knative-cluster-{{ 99999999 | random | to_uuid }}
+    image: "quay.io/ibm-avocados/docker-kubectl:latest"
+    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} "https://github.com/knative/serving/releases/download/v{{ knative_version }}/serving-core.yaml"
+
+
+- name: Install networking layer
+  debug:
+    msg: "TODO you need to figure out options here --> https://knative.dev/v0.16-docs/install/any-kubernetes-cluster/"
+
+- name: Configure DNS (Magic DNS xip.io)
+  docker_container:
+    name: install-knative-cluster-{{ 99999999 | random | to_uuid }}
+    image: "quay.io/ibm-avocados/docker-kubectl:latest"
+    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} "https://github.com/knative/serving/releases/download/v{{ knative_version }}/serving-default-domain.yaml"
