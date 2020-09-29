@@ -23,7 +23,7 @@
     entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }}
 
 - name : Install knative controller 
-  docker_coantiner: 
+  docker_container: 
     name: install-knative-controller-istio-{{ 99999999 | random | to_uuid }}
     imate: "quay.io/ibm-avocados/docker-kubectl:latest"
     entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} "https://github.com/knative/net-istio/releases/download/v{{ knative_version }}/release.yaml"
