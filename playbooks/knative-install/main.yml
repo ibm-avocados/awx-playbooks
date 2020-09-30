@@ -1,6 +1,7 @@
 ---
 - name: Install knative-with-istio on a k8s cluster
   hosts: all
+  gather_facts: no
 
   tasks:
     - name: debug pring
