@@ -2,19 +2,19 @@
 - name: Install knative-with-istio on a k8s cluster
   hosts: all
   gather_facts: no
-
   tasks:
     - name: debug pring
       debug:
         message: "what is going on?"
+
     - name: Fetch the variables from var file
       include_vars:
         file: vars.yml
-        
+
     - name: install docker-py module
       pip:
-        name: 
+        name:
           - docker
-        
+
     - name: include the docker-run tasks
       include: docker-run.yml
