@@ -1,7 +1,11 @@
 ---
 - name: pull down the newest image
   docker_image:
-    name: quay.io/ibm-avocados/docker-kubctl
+    name: quay.io/ibm-avocados/docker-kubectl
+    source: pull
+- name: pull down the newest image for knative
+  docker_image:
+    name: quay.io/ibm-avocados/docker-knative-istio
     source: pull
 
 - name: Install the CRDs
