@@ -5,7 +5,7 @@
     source: pull
 - name: pull down the newest image for knative
   docker_image:
-    name: quay.io/ibm-avocados/docker-knative-istio
+    name: quay.io/ibm-avocados/docker-istio-knative
     source: pull
 
 - name: Install the CRDs
@@ -23,7 +23,7 @@
 - name: Install networking layer (ISTIO)
   docker_container:
     name: install-knative-network-istio-{{ 99999999 | random | to_uuid }}
-    image: "quay.io/ibm-avocados/docker-knative-istio:latest"
+    image: "quay.io/ibm-avocados/docker-istio-knative:latest"
     entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }}
 
 - name : Install knative controller 
