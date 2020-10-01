@@ -1,5 +1,0 @@
----
-ibmcloud_api_key: "some-api-key"
-cluster_id: "some-cluster"
-knative_version: "0.17.0"
-namespace: "default"
