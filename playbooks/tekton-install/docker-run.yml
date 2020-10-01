@@ -3,31 +3,9 @@
   docker_image:
     name: quay.io/ibm-avocados/docker-kubectl
     source: pull
-- name: pull down the newest image for knative
-  docker_image:
-    name: quay.io/ibm-avocados/docker-istio-knative
-    source: pull
 
-- name: Install the CRDs
+- name: run the container
   docker_container:
-    name: install-knative-crd-istio-{{ 99999999 | random | to_uuid }}
+    name: install-tekton-{{ 99999999 | random | to_uuid }}
     image: "quay.io/ibm-avocados/docker-kubectl:latest"
-    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} "https://github.com/knative/serving/releases/download/v{{ knative_version }}/serving-crds.yaml"
-
-- name: Install the core components
-  docker_container:
-    name: install-knative-core-istio-{{ 99999999 | random | to_uuid }}
-    image: "quay.io/ibm-avocados/docker-kubectl:latest"
-    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} "https://github.com/knative/serving/releases/download/v{{ knative_version }}/serving-core.yaml"
-
-- name: Install networking layer (ISTIO)
-  docker_container:
-    name: install-knative-network-istio-{{ 99999999 | random | to_uuid }}
-    image: "quay.io/ibm-avocados/docker-istio-knative:latest"
-    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }}
-
-- name : Install knative controller 
-  docker_container: 
-    name: install-knative-controller-istio-{{ 99999999 | random | to_uuid }}
-    image: "quay.io/ibm-avocados/docker-kubectl:latest"
-    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} "https://github.com/knative/net-istio/releases/download/v{{ knative_version }}/release.yaml"
+    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} "https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml"
