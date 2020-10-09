@@ -12,6 +12,10 @@
   - name: Print Workflow Job ID
     debug: 
       msg: '{{ tower_workflow_job_id }}'
+  
+  - name: Pausing for a few seconds
+    pause:
+      seconds: 30
 
   - name: Pring Workflow Job ID Name
     debug: 
