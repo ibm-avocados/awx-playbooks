@@ -15,7 +15,7 @@
   
   - name: Pausing for a few seconds
     pause:
-      seconds: 30
+      seconds: "{{ 60 | random }}"
 
   - name: Pring Workflow Job ID Name
     debug: 
