@@ -9,7 +9,7 @@
 
 - name: pull down the newest image
   docker_image:
-    name: quay.io/clouddragons/docker-knative-serving-openshift:4.5
+    name: quay.io/ibm-advocados/docker-knative-serving-openshift:latest
     source: pull
 
 - name: Generate runtime name for container
@@ -19,7 +19,7 @@
 - name: run the container
   docker_container:
     name: "{{ container_name }}"
-    image: "quay.io/clouddragons/docker-knative-serving-openshift:4.5"
+    image: "quay.io/ibm-advocados/docker-knative-serving-openshift:latest"
     state: started
     command: sh
     detach: true
@@ -41,7 +41,7 @@
 - name: remove container
   docker_container:
     name: "{{ container_name }}"
-    image: "quay.io/clouddragons/docker-knative-serving-openshift:4.5"
+    image: "quay.io/ibm-advocados/docker-knative-serving-openshift:latest"
     state: absent
 
 - name: Fail when script in image returns non zero value
