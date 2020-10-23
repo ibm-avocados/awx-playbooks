@@ -10,4 +10,4 @@
 
   - name: Gotta take a nap for {{ number }} seconds
     wait_for:
-      delay: {{ number }}
+      delay: "{{ number }}"
