@@ -1,0 +1,55 @@
+---
+- name: "Verify that required variables are defined"
+  assert:
+    that: "{{ item }} is defined"
+    fail_msg: "variable {{ item }} is required for this playbook"
+  with_items:
+    - ibmcloud_api_key
+    - cluster_id
+
+- name: pull down the newest image
+  docker_image:
+    name: quay.io/clouddragons/docker-knative-serving-openshift:4.5
+    source: pull
+
+- name: Generate runtime name for container
+  set_fact:
+    container_name: "install-knative-serving-{{ 99999999 | random | to_uuid }}"
+
+- name: run the container
+  docker_container:
+    name: "{{ container_name }}"
+    image: "quay.io/clouddragons/docker-knative-serving-openshift:4.5"
+    state: started
+    command: sh
+    detach: true
+    interactive: true
+    tty: true
+
+- name: add docker container to inventory
+  add_host:
+    name: "{{ container_name }}"
+    ansible_connection: docker
+
+- name: install knative serving
+  delegate_to: "{{ container_name }}"
+  raw: "/scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }}"
+  ignore_errors: yes
+  register: knative_serving_install_out
+  changed_when: knative_serving_install_out.rc == 0
+
+- name: remove container
+  docker_container:
+    name: "{{ container_name }}"
+    image: "quay.io/clouddragons/docker-knative-serving-openshift:4.5"
+    state: absent
+
+- name: Fail when script in image returns non zero value
+  fail:
+    msg: "Script failed:  output is {{ knative_serving_install_out.stderr }}"
+  when: knative_serving_install_out.rc  != 0
+
+- name: Display success message if no errors
+  debug:
+     msg: "Knative serving successfully installed"
+  when: knative_serving_install_out.rc  == 0
