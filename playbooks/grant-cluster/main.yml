@@ -1,0 +1,17 @@
+---
+- name: Install grant-cluster on cloud foundry
+  hosts: all
+
+  tasks:
+
+    - name: Fetch the variables from var file
+      include_vars:
+        file: vars.yml
+        
+    - name: install docker-py module
+      pip:
+        name: 
+          - docker
+        
+    - name: include the docker-run tasks
+      include: docker-run.yml
