@@ -1,0 +1,16 @@
+---
+# The API key used to authenticate you with IBM Cloud
+ibmcloud_api_key: ""
+# The ID of the cluster that you would like to target
+cluster_id: ""
+# The entitled registry key for the cloud pak software that you would like to install
+entitled_registry_key: ""
+
+# The file to use to configure Transformation Advisor. Either '""' or '"transadv.yaml"' (You need both sets of quotes)
+transformation_advisor_file: '"transadv.yaml"'
+
+# Would you like to install CodeReady Workspaces? Either true or false
+code_ready_workspaces: true
+
+# Would you like a shared Transformation Advisor Environment? This disables authentication on the Transformation Advisor endpoint. Either true or false.
+TA_shared_env: true
