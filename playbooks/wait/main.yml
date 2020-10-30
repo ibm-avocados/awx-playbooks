@@ -1,0 +1,13 @@
+---
+- name: wait
+  hosts: all
+  gather_facts: false
+
+  tasks:
+  - name: Fetch the variables from var file
+    include_vars:
+      file: vars.yml
+
+  - name: Gotta take a nap for {{ number }} seconds
+    wait_for:
+      delay: "{{ number }}"

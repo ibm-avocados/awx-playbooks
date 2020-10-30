@@ -7,6 +7,9 @@
     - name: install requests module
       pip:
         name: requests
+    - name: Pausing for a few seconds
+      pause:
+        seconds: "{{ 60 | random }}"
     - name: create/get cluster
       kubeadmin_cluster_create:
         name: "{{ cluster_name }}"
