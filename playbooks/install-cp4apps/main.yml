@@ -1,0 +1,17 @@
+---
+- name: Install CP4Apps on an OpenShift cluster
+  hosts: localhost
+
+  tasks:
+
+    - name: Fetch the variables from var file
+      include_vars:
+        file: vars.yml
+        
+    - name: install docker-py module
+      pip:
+        name: 
+          - docker
+        
+    - name: include the install-cp4apps tasks
+      include: install-cp4apps.yml

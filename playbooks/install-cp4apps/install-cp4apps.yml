@@ -1,0 +1,52 @@
+---
+- name: pull down the newest image
+  docker_image:
+    name: quay.io/ibm-avocados/docker-cp4apps:latest
+    source: pull
+
+- name: set facts
+  set_fact:
+    job_uuid: "{{ 99999999 | random | to_uuid }}"
+    home: "{{ ansible_env.HOME }}"
+
+- name: create unique data directory
+  file:
+    path: "{{ home }}/cp4apps_data/data-{{ job_uuid }}/data"
+    state: directory
+    mode: '0755'
+
+- name: template kabanero.yaml file
+  template:
+    src: "{{ home }}/cp4apps_data/templates/kabanero.yaml.j2"
+    dest: "{{ home }}/cp4apps_data/data-{{ job_uuid }}/data/kabanero.yaml"
+    mode: "0666"
+
+- name: template transadv.yaml
+  template:
+    src: "{{ home }}/cp4apps_data/templates/transadv.yaml.j2"
+    dest: "{{ home }}/cp4apps_data/data-{{ job_uuid }}/data/transadv.yaml"
+    mode: "0666"
+
+- name: Copy mobilefoundation.yaml
+  shell: 'cp ./data/mobilefoundation.yaml {{ home }}/cp4apps_data/data-{{ job_uuid }}/data/mobilefoundation.yaml'
+
+- name: template config.yaml
+  template:
+    src: "{{ home }}/cp4apps_data/templates/config.yaml.j2"
+    dest: "{{ home }}/cp4apps_data/data-{{ job_uuid }}/data/config.yaml"
+    mode: "0666"
+
+- name: run the container
+  docker_container:
+    name: install-cp4apps-cluster-{{ 99999999 | random | to_uuid }}
+    image: "quay.io/ibm-avocados/docker-cp4apps:latest"
+    detach: false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - "{{ home }}/cp4apps_data/data-{{ job_uuid }}/data:/data/"
+    entrypoint: /scripts/run.sh {{ entitled_registry_key }} {{ ibmcloud_api_key }} {{ cluster_id }} {{ home }}/cp4apps_data/data-{{ job_uuid }}/
+
+- name: delete unique data directory
+  file:
+    path: "{{ home }}/cp4apps_data/data-{{ job_uuid }}"
+    state: absent
