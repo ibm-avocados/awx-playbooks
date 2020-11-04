@@ -8,4 +8,4 @@
   docker_container:
     name: install-ibmcloud-grant-cluster-{{ 99999999 | random | to_uuid }}
     image: "quay.io/ibm-avocados/docker-ibmcloud-grant-cluster:latest"
-    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ event_name }} {{ event_password }} {{ admin_page_enabled }} {{ users_per_cluster }} {{ filter_tag }} {{ access_group_id }} {{ ghe_username }} {{ ghe_api_key }}
+    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ event_name }} {{ event_password }} {{ admin_page_enabled }} {{ users_per_cluster }} {{ filter_tag }} {{ access_group_id }} {{ ghe_username }} {{ ghe_api_key }} {{ account }}
