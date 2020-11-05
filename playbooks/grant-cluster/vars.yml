@@ -2,7 +2,6 @@
 ibmcloud_api_key: "some-api-key"
 event_name: "some-name"
 event_password: "some-password"
-admin_page_enabled: "false"
 users_per_cluster: "1"
 filter_tag: "some-tag"
 access_group_id: 'AccessGroupId-9b0b1476-4c4b-4cfb-9a54-70e26b0d3341'
