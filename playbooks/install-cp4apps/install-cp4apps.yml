@@ -1,4 +1,10 @@
 ---
+
+- name: install docker-py module
+      pip:
+        name: 
+          - docker
+
 - name: pull down the newest image
   docker_image:
     name: quay.io/ibm-avocados/docker-cp4apps:latest
