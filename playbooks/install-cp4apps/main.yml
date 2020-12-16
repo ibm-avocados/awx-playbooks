@@ -1,6 +1,6 @@
 ---
 - name: Install CP4Apps on an OpenShift cluster
-  hosts: localhost
+  hosts: all
 
   tasks:
 
