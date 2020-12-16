@@ -17,8 +17,8 @@
 
 - name: template kabanero.yaml file
   template:
-    src: "{{ home }}/cp4apps_data/templates/kabanero.yaml.j2"
-    dest: "{{ home }}/cp4apps_data/data-{{ job_uuid }}/data/kabanero.yaml"
+    src: "/root/cp4apps_data/templates/kabanero.yaml.j2"
+    dest: "/root/cp4apps_data/data-{{ job_uuid }}/data/kabanero.yaml"
     mode: "0666"
 
 - name: template transadv.yaml
