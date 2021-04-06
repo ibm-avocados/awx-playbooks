@@ -1,0 +1,5 @@
+---
+ibmcloud_api_key: "some-api-key"
+cluster_id: "some-cluster name or id"
+entitlement_registry_key: "some-entitlement-registry-key"
+frodo_image: "some-frodo-image"
