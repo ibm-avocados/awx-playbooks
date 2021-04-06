@@ -1,0 +1,22 @@
+---
+- name: "Verify that required variables are defined"
+  assert:
+    that: "{{ item }} is defined"
+    fail_msg: "variable {{ item }} is required for this playbook"
+  with_items:
+    - ibmcloud_api_key
+    - cluster_id
+    - frodo_image
+    - entitlement_registry_key
+
+- name: pull down the newest image
+  docker_image:
+    name: quay.io/clouddragons/docker-cp4i-2020.4:latest
+    source: pull
+
+
+- name: run the container
+  docker_container:
+    name: install-knative-serving-{{ 99999999 | random | to_uuid }}
+    image: "quay.io/clouddragons/docker-cp4i-2020.4:latest"
+    entrypoint: /scripts/run.sh {{ cluster_id }} {{ ibmcloud_api_key }} {{ entitlement_registry_key }} {{ frodo_image }}
