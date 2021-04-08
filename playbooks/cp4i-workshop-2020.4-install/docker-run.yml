@@ -5,7 +5,7 @@
     fail_msg: "variable {{ item }} is required for this playbook"
   with_items:
     - ibmcloud_api_key
-    - cluster_id
+    - cluster_name
     - frodo_image
     - entitlement_registry_key
 
@@ -17,6 +17,6 @@
 
 - name: run the container
   docker_container:
-    name: install-knative-serving-{{ 99999999 | random | to_uuid }}
+    name: install-cp41-20204-{{ 99999999 | random | to_uuid }}
     image: "quay.io/clouddragons/docker-cp4i-2020.4:latest"
-    entrypoint: /scripts/run.sh {{ cluster_id }} {{ ibmcloud_api_key }} {{ entitlement_registry_key }} {{ frodo_image }}
+    entrypoint: /scripts/run.sh {{ cluster_name }} {{ ibmcloud_api_key }} {{ entitlement_registry_key }} {{ frodo_image }}
