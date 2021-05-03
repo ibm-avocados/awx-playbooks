@@ -1,0 +1,21 @@
+---
+- name: "Verify that required variables are defined"
+  assert:
+    that: "{{ item }} is defined"
+    fail_msg: "variable {{ item }} is required for this playbook"
+  with_items:
+    - ibmcloud_api_key
+    - cluster_name
+    - region
+    - resource_group_name
+
+- name: pull down the newest image
+  docker_image:
+    name: quay.io/ibm-avocados/docker-cloud-native-toolkit
+    source: pull
+
+- name: run the container
+  docker_container:
+    name: install-cloud-native-tool-kit-{{ 99999999 | random | to_uuid }}
+    image: "quay.io/ibm-avocados/docker-cloud-native-toolkit"
+    entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_name }} {{ region }} {{ resource_group_name }}

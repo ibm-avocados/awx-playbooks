@@ -1,0 +1,6 @@
+---
+ibmcloud_api_key: "some-api-key"
+cluster_id: "some-cluster name or id"
+region: "some-region"
+resource_group_name: "Default"
+
