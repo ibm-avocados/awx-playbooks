@@ -5,4 +5,4 @@ collections:
   - name: ibm.cloudcollection
     version: 1.10.0
   - name: moficodes.kubeadmin
-    version: 1.0.6
+    version: 1.0.7
