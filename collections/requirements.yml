@@ -1,8 +1,10 @@
 ---
 collections:
   - name: community.kubernetes
-    version: 1.0.0
+    version: 1.2.1
   - name: ibm.cloudcollection
-    version: 1.10.0
+    version: 1.24.0
   - name: moficodes.kubeadmin
     version: 1.0.7
+  - name: community.docker
+    version: 1.6.0
