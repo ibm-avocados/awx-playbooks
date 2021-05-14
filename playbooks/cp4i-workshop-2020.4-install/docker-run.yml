@@ -19,4 +19,5 @@
   docker_container:
     name: install-cp41-20204-{{ 99999999 | random | to_uuid }}
     image: "quay.io/clouddragons/docker-cp4i-2020.4:latest"
+    detach: no
     entrypoint: /scripts/run.sh {{ cluster_name }} {{ ibmcloud_api_key }} {{ entitlement_registry_key }} {{ frodo_image }}

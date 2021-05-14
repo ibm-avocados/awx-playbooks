@@ -8,4 +8,5 @@
   docker_container:
     name: install-addon-knative-{{ 99999999 | random | to_uuid }}
     image: "quay.io/ibm-avocados/docker-ibmcloud-addon-knative:latest"
+    detach: no
     entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} 

@@ -8,4 +8,5 @@
   docker_container:
     name: install-tekton-{{ 99999999 | random | to_uuid }}
     image: "quay.io/ibm-avocados/docker-kubectl:latest"
+    detach: no
     entrypoint: /scripts/run.sh {{ ibmcloud_api_key }} {{ cluster_id }} "https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml"
