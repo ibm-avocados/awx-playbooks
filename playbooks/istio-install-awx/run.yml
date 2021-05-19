@@ -1,0 +1,16 @@
+---
+- name: create scripts directory
+  ansible.builtin.file: 
+    path: /scripts
+    mode: '0644'
+
+- name: download script
+  geturl: 
+    url: https://raw.githubusercontent.com/ibm-avocados/docker-istio/master/scripts/run.sh
+    dest: /scripts
+    mode: '0755'
+
+- name: run shell script
+  shell:
+    cmd: ./run.sh {{ ibmcloud_api_key }} {{ cluster_id }} {{ namespace }}
+    chdir: /scripts
