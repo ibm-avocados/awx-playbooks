@@ -5,7 +5,7 @@
     mode: '0644'
 
 - name: download script
-  geturl: 
+  get_url: 
     url: https://raw.githubusercontent.com/ibm-avocados/docker-istio/master/scripts/run.sh
     dest: /scripts
     mode: '0755'
