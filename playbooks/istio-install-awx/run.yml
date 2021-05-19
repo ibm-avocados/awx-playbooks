@@ -5,6 +5,10 @@
     state: directory
     mode: '0664'
 
+- name: Sleep for 300 seconds and continue with play
+  wait_for:
+    timeout: 300
+
 - name: download script
   get_url: 
     url: https://raw.githubusercontent.com/ibm-avocados/docker-istio/master/scripts/run.sh
