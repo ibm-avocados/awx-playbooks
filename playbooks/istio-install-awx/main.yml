@@ -10,4 +10,4 @@
       
         
     - name: run shell script
-      include: run.yaml
+      include: run.yml
