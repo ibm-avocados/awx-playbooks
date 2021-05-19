@@ -2,6 +2,8 @@
 - name: create scripts directory
   ansible.builtin.file: 
     path: ./scripts
+    owner: runner
+    group: runner
     state: directory
     mode: '0664'
 
