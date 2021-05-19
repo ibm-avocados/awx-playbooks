@@ -2,6 +2,7 @@
 - name: create scripts directory
   ansible.builtin.file: 
     path: /scripts
+    state: directory
     mode: '0644'
 
 - name: download script
