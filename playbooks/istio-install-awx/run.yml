@@ -13,5 +13,5 @@
 
 - name: run shell script
   shell:
-    cmd: ./run.sh {{ ibmcloud_api_key }} {{ cluster_id }} {{ namespace }}
+    cmd: ./run.sh {{ ibmcloud_api_key }} {{ cluster_id }} {{ namespace }} {{ istio_version }}
     chdir: ./scripts
