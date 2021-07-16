@@ -1,0 +1,12 @@
+---
+- name: pull down the newest image
+  docker_image:
+    name: quay.io/ibm-avocados/docker-rosa
+    source: pull
+
+- name: run the container
+  docker_container:
+    name: request-aws-rosa-{{ 99999999 | random | to_uuid }}
+    image: "quay.io/ibm-avocados/docker-rosa:latest"
+    detach: no
+    entrypoint: /scripts/run.sh {{ aws_client_id }} {{ aws_secret_key }} {{ cluster_id }}

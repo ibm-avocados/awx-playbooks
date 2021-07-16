@@ -1,0 +1,4 @@
+---
+aws_client_id: "some-client-id"
+aws_secret_key : "some-client-id"
+cluster_id: "some-cluster"
