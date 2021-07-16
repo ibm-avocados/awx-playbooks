@@ -1,7 +1,7 @@
 ---
 - name: pull down the newest image
   docker_image:
-    name: quay.io/ibm-avocados/docker-rosa
+    name: quay.io/ibm-avocados/docker-aws-rosa
     source: pull
 
 - name: run the container
