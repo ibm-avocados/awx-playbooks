@@ -7,6 +7,6 @@
 - name: run the container
   docker_container:
     name: request-aws-rosa-{{ 99999999 | random | to_uuid }}
-    image: "quay.io/ibm-avocados/docker-rosa:latest"
+    image: "quay.io/ibm-avocados/docker-aws-rosa:latest"
     detach: no
-    entrypoint: /scripts/run.sh {{ aws_client_id }} {{ aws_secret_key }} {{ cluster_id }}
+    entrypoint: /scripts/run.sh {{ aws_client_id }} {{ aws_secret_key }} {{ cluster_id }} {{ compute_nodes }} {{ rosa_token }}
